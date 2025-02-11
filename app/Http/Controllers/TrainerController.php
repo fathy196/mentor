@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Trainer;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class TrainerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +12,6 @@ class HomeController extends Controller
     public function index()
     {
         //
-        // $trainer = Trainer::with('user')->get();
-        // dd($trainer);
-        // return view('home');
     }
 
     /**
