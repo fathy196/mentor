@@ -21,7 +21,7 @@
         <nav class="breadcrumbs">
             <div class="container">
                 <ol>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
                     <li class="current">Events</li>
                 </ol>
             </div>
@@ -34,21 +34,23 @@
         <div class="container" data-aos="fade-up">
 
             <div class="row">
+                @foreach ($events as $event)
+                    
                 <div class="col-md-6 d-flex align-items-stretch">
                     <div class="card">
                         <div class="card-img">
                             <img src="{{ asset('assets/img/events-item-1.jpg') }}" alt="...">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="">Introduction to webdesign</a></h5>
-                            <p class="fst-italic text-center">Sunday, September 26th at 7:00 pm</p>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut
-                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat</p>
+                            <h5 class="card-title"><a href="">{{$event->title}}</a></h5>
+                            <p class="fst-italic text-center">{{ $event->formatted_event_date }}</p>
+                            <p class="card-text">{{$event->description}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex align-items-stretch">
+                @endforeach
+
+                {{-- <div class="col-md-6 d-flex align-items-stretch">
                     <div class="card">
                         <div class="card-img">
                             <img src="{{ asset('assets/img/events-item-2.jpg') }}" alt="...">
@@ -62,7 +64,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> --}}
             </div>
 
         </div>

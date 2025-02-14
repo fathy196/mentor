@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -17,5 +18,10 @@ class Event extends Model
     public function trainer()
     {
         return $this->belongsTo(Trainer::class);
+    }
+    public function getFormattedEventDateAttribute()
+    {
+        return Carbon::parse($this->event_date)
+        ->format('l, F j, Y \a\t g:i A');
     }
 }

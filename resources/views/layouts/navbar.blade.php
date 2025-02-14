@@ -1,7 +1,7 @@
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
          {{-- <img src="{{asset('assets/img/logo.png')}}" alt="">  --}}
         <h1 class="sitename">Mentor</h1>
@@ -9,12 +9,12 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html" class="@yield('home')">Home<br></a></li>
-          <li><a href="about.html" class="@yield('about')">About</a></li>
-          <li><a href="courses.html" class="@yield('courses')">Courses</a></li>
-          <li><a href="trainers.html" class="@yield('trainers')">Trainers</a></li>
-          <li><a href="events.html" class="@yield('events')">Events</a></li>
-          <li><a href="pricing.html" class="@yield('pricing')">Pricing</a></li>
+          <li><a href="{{ route('home') }}" class="@yield('home')">Home<br></a></li>
+          <li><a href="{{ route('about') }}" class="@yield('about')">About</a></li>
+          <li><a href="{{ route('courses.index') }}" class="@yield('courses')">Courses</a></li>
+          <li><a href="{{ route('trainers.index') }}" class="@yield('trainers')">Trainers</a></li>
+          <li><a href="{{ route('events.index') }}" class="@yield('events')">Events</a></li>
+          {{-- <li><a href="pricing.html" class="@yield('pricing')">Pricing</a></li> --}}
           {{-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
@@ -32,12 +32,12 @@
               <li><a href="#">Dropdown 4</a></li>
             </ul>
           </li> --}}
-          <li><a href="contact.html" class="@yield('contact')">Contact</a></li>
+          <li><a href="{{ route('contact') }}" class="@yield('contact')">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="courses.html">Get Started</a>
+      <a class="btn-getstarted" href="{{ route('courses.index') }}">Get Started</a>
 
     </div>
   </header>

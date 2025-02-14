@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Event;
 use App\Models\Trainer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,9 +16,24 @@ class HomeController extends Controller
     public function index()
     {
         //
-        // $trainer = Trainer::with('user')->get();
-        // dd($trainer);
-        // return view('home');
+
+        // $courses = Course::with(['trainer', 'category'])->get();
+        $trainers = Trainer::inRandomOrder()->take(3)->get(); // Get 3 random trainers
+
+        $popularCourses = Course::popular(3)->get(); // Fetch top 2 popular courses
+        // dd($popularCourses);
+
+        $userCount = User::where('role', 'student')->count();
+        // dd($userCount);
+        // $trainerCount = User::where('role', 'trainer')->count();
+        $trainerCount = Trainer::count();
+        $courseCount = Course::count();
+        $eventCount = Event::count();
+        return view('home', compact(['trainers', 'popularCourses', 'userCount', 'trainerCount', 'courseCount', 'eventCount']));
+    }
+    public function about()
+    {
+        return view('about');
     }
 
     /**

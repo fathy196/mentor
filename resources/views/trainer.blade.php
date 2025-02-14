@@ -21,7 +21,7 @@
         <nav class="breadcrumbs">
             <div class="container">
                 <ol>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ route('home') }}">Home</a></li>
                     <li class="current">Trainers</li>
                 </ol>
             </div>
@@ -29,31 +29,40 @@
     </div><!-- End Page Title -->
 
     <!-- Trainers Section -->
-    <section id="trainers" class="section trainers">
+    <section id="trainers" class="section trainers" >
 
         <div class="container">
 
             <div class="row gy-5">
-
-                <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
-                    <div class="member-img">
-                        <img src="{{ asset('assets/img/team/team-1.jpg') }}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href="#"><i class="bi bi-twitter-x"></i></a>
-                            <a href="#"><i class="bi bi-facebook"></i></a>
-                            <a href="#"><i class="bi bi-instagram"></i></a>
-                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                @foreach ($trainers as $trainer)
+                    <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
+                        <div class="member-img">
+                            <img src="{{ asset('assets/img/team/team-1.jpg') }}" class="img-fluid" alt="">
+                            <div class="social">
+                                @foreach ($trainer->social_links as $link)
+                                <a href="{{ $link['url'] }}" target="_blank">
+                                    @if ($link['platform'] == 'Twitter')
+                                        <i class="bi bi-twitter-x"></i>
+                                    @elseif($link['platform'] == 'Facebook')
+                                        <i class="bi bi-facebook"></i>
+                                    @elseif($link['platform'] == 'Instagram')
+                                        <i class="bi bi-instagram"></i>
+                                    @elseif($link['platform'] == 'LinkedIn')
+                                        <i class="bi bi-linkedin"></i>
+                                    @endif
+                                </a>
+                            @endforeach
+                            </div>
                         </div>
-                    </div>
-                    <div class="member-info text-center">
-                        <h4>Walter White</h4>
-                        <span>Business</span>
-                        <p>Aliquam iure quaerat voluptatem praesentium possimus unde laudantium vel dolorum distinctio dire
-                            flow</p>
-                    </div>
-                </div><!-- End Team Member -->
+                        <div class="member-info text-center ">
+                            <h4><a href="{{ route('trainers.show', $trainer->id) }}">{{ $trainer->user->name }}</a></h4>
+                            <span>{{$trainer->specialization}}</span>
+                            <p>{{substr( $trainer->bio, 0, 40)}}...</p>
+                        </div>
+                    </div><!-- End Team Member -->
+                @endforeach
 
-                <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
+                {{-- <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="200">
                     <div class="member-img">
                         <img src="{{ asset('assets/img/team/team-2.jpg') }}" class="img-fluid" alt="">
                         <div class="social">
@@ -141,7 +150,7 @@
                         <p>Sint sint eveniet explicabo amet consequatur nesciunt error enim rerum earum et omnis fugit
                             eligendi cupiditate vel</p>
                     </div>
-                </div><!-- End Team Member -->
+                </div><!-- End Team Member --> --}}
 
             </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Trainer;
 use Illuminate\Http\Request;
 
 class TrainerController extends Controller
@@ -11,7 +12,9 @@ class TrainerController extends Controller
      */
     public function index()
     {
-        //
+        $trainers = Trainer::with('user')->get();
+        // dd($trainers);
+        return view('trainer', compact('trainers'));
     }
 
     /**
@@ -35,7 +38,8 @@ class TrainerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $trainer = Trainer::findOrFail($id);
+        return view('singleTrainer', compact('trainer'));
     }
 
     /**

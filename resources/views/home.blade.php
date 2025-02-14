@@ -12,7 +12,7 @@
             <h2 data-aos="fade-up" data-aos-delay="100">Learning Today,<br>Leading Tomorrow</h2>
             <p data-aos="fade-up" data-aos-delay="200">We are team of talented designers making websites with Bootstrap</p>
             <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
-                <a href="courses.html" class="btn-get-started">Get Started</a>
+                <a href="{{ route('courses.index') }}" class="btn-get-started">Get Started</a>
             </div>
         </div>
 
@@ -63,35 +63,36 @@
 
                 <div class="col-lg-3 col-md-6">
                     <div class="stats-item text-center w-100 h-100">
-                        <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1"
-                            class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $userCount }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
                         <p>Students</p>
                     </div>
                 </div><!-- End Stats Item -->
 
                 <div class="col-lg-3 col-md-6">
                     <div class="stats-item text-center w-100 h-100">
-                        <span data-purecounter-start="0" data-purecounter-end="64" data-purecounter-duration="1"
-                            class="purecounter"></span>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $courseCount }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
                         <p>Courses</p>
                     </div>
                 </div><!-- End Stats Item -->
 
                 <div class="col-lg-3 col-md-6">
                     <div class="stats-item text-center w-100 h-100">
-                        <span data-purecounter-start="0" data-purecounter-end="42" data-purecounter-duration="1"
-                            class="purecounter"></span>
-                        <p>Events</p>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $trainerCount }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
+                        <p>Trainers</p>
                     </div>
                 </div><!-- End Stats Item -->
 
                 <div class="col-lg-3 col-md-6">
                     <div class="stats-item text-center w-100 h-100">
-                        <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1"
-                            class="purecounter"></span>
-                        <p>Trainers</p>
+                        <span data-purecounter-start="0" data-purecounter-end="{{ $eventCount }}"
+                            data-purecounter-duration="1" class="purecounter"></span>
+                        <p>Events</p>
                     </div>
                 </div><!-- End Stats Item -->
+
 
             </div>
 
@@ -267,36 +268,37 @@
         <div class="container">
 
             <div class="row">
-
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="course-item">
-                        <img src="{{ asset('assets/img/course-1.jpg') }}" class="img-fluid" alt="...">
-                        <div class="course-content">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <p class="category">Web Development</p>
-                                <p class="price">$169</p>
-                            </div>
-
-                            <h3><a href="course-details.html">Website Design</a></h3>
-                            <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere
-                                quia quae dolores dolorem tempore.</p>
-                            <div class="trainer d-flex justify-content-between align-items-center">
-                                <div class="trainer-profile d-flex align-items-center">
-                                    <img src="{{ asset('assets/img/trainers/trainer-1-2.jpg') }}" class="img-fluid"
-                                        alt="">
-                                    <a href="" class="trainer-link">Antonio</a>
+                @foreach ($popularCourses as $course)
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="course-item">
+                            <img src="{{ asset('assets/img/course-1.jpg') }}" class="img-fluid" alt="...">
+                            <div class="course-content">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <p class="category">{{ $course->category->name }}</p>
+                                    <p class="price">{{ $course->price }}</p>
                                 </div>
-                                <div class="trainer-rank d-flex align-items-center">
-                                    <i class="bi bi-person user-icon"></i>&nbsp;50
-                                    &nbsp;&nbsp;
-                                    <i class="bi bi-heart heart-icon"></i>&nbsp;65
+
+                                <h3><a href="{{ route('courses.show', $course->id) }}">{{ $course->title }}</a></h3>
+                                <p class="description">{{ $course->description }}.</p>
+                                <div class="trainer d-flex justify-content-between align-items-center">
+                                    <div class="trainer-profile d-flex align-items-center">
+                                        <img src="{{ asset('assets/img/trainers/trainer-1-2.jpg') }}" class="img-fluid"
+                                            alt="">
+                                        <a href="{{ route('trainers.show', $course->trainer->id) }}" class="trainer-link">{{ $course->trainer->user->name }}</a>
+                                    </div>
+                                    <div class="trainer-rank d-flex align-items-center">
+                                        <i class="bi bi-person user-icon"></i>&nbsp;50
+                                        &nbsp;&nbsp;
+                                        <i class="bi bi-heart heart-icon"></i>&nbsp;65
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> <!-- End Course Item-->
+                    </div> <!-- End Course Item-->
+                @endforeach
 
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
+
+                {{-- <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
                     data-aos-delay="200">
                     <div class="course-item">
                         <img src="{{ asset('assets/img/course-2.jpg') }}" class="img-fluid" alt="...">
@@ -306,7 +308,7 @@
                                 <p class="price">$250</p>
                             </div>
 
-                            <h3><a href="course-details.html">Search Engine Optimization</a></h3>
+                            <h3><a href="{{ route('courses.show', $course->id) }}">Search Engine Optimization</a></h3>
                             <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere
                                 quia quae dolores dolorem tempore.</p>
                             <div class="trainer d-flex justify-content-between align-items-center">
@@ -335,7 +337,7 @@
                                 <p class="price">$180</p>
                             </div>
 
-                            <h3><a href="course-details.html">Copywriting</a></h3>
+                            <h3><a href="{{ route('courses.show', $course->id) }}">Copywriting</a></h3>
                             <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere
                                 quia quae dolores dolorem tempore.</p>
                             <div class="trainer d-flex justify-content-between align-items-center">
@@ -352,7 +354,7 @@
                             </div>
                         </div>
                     </div>
-                </div> <!-- End Course Item-->
+                </div> <!-- End Course Item--> --}}
 
             </div>
 
@@ -366,28 +368,39 @@
         <div class="container">
 
             <div class="row">
-
-                <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-                    <div class="member">
-                        <img src="{{ asset('assets/img/trainers/trainer-1.jpg') }}" class="img-fluid" alt="">
-                        <div class="member-content">
-                            <h4>Walter White</h4>
-                            <span>Web Development</span>
-                            <p>
-                                Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat
-                                qui aut aut aut
-                            </p>
-                            <div class="social">
-                                <a href=""><i class="bi bi-twitter-x"></i></a>
-                                <a href=""><i class="bi bi-facebook"></i></a>
-                                <a href=""><i class="bi bi-instagram"></i></a>
-                                <a href=""><i class="bi bi-linkedin"></i></a>
+                @foreach ($trainers as $trainer)
+                    <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                        <div class="member">
+                            <img src="{{ asset('assets/img/trainers/trainer-1.jpg') }}" class="img-fluid"
+                                alt="">
+                            <div class="member-content">
+                                <h4>{{ $trainer->user->name }}</h4>
+                                <span>{{ $trainer->specialization }}</< /span>
+                                    <p>
+                                        {{ $trainer->bio }}
+                                    </p>
+                                    <div class="social">
+                                        @foreach ($trainer->social_links as $link)
+                                            <a href="{{ $link['url'] }}" target="_blank">
+                                                @if ($link['platform'] == 'Twitter')
+                                                    <i class="bi bi-twitter-x"></i>
+                                                @elseif($link['platform'] == 'Facebook')
+                                                    <i class="bi bi-facebook"></i>
+                                                @elseif($link['platform'] == 'Instagram')
+                                                    <i class="bi bi-instagram"></i>
+                                                @elseif($link['platform'] == 'LinkedIn')
+                                                    <i class="bi bi-linkedin"></i>
+                                                @endif
+                                            </a>
+                                        @endforeach
+                                    </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- End Team Member -->
+                    </div><!-- End Team Member -->
+                @endforeach
 
-                <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
+
+                {{-- <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
                     <div class="member">
                         <img src="{{ asset('assets/img/trainers/trainer-2.jpg') }}" class="img-fluid" alt="">
                         <div class="member-content">
@@ -425,7 +438,7 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- End Team Member -->
+                </div><!-- End Team Member --> --}}
 
             </div>
 

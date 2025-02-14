@@ -12,7 +12,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::with(['trainer', 'category'])->get();
+        return view('courses.index', compact('courses'));
     }
 
     /**
@@ -34,9 +35,11 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(string $id)
     {
         //
+        $course = Course::with('category')->findOrFail($id);
+        return view('courses.show', compact('course'));
     }
 
     /**

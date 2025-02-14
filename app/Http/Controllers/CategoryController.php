@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       $events = Event::get();
-       return view('event', compact('events'));
+        //
     }
 
     /**
@@ -35,7 +34,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(Category $category)
     {
         //
     }
@@ -43,7 +42,7 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event)
+    public function edit(Category $category)
     {
         //
     }
@@ -51,7 +50,7 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -59,7 +58,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy(Category $category)
     {
         //
     }
