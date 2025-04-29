@@ -35,7 +35,7 @@
 
             <div class="row">
                 <div class="col-lg-8">
-                    <img src="{{ asset('assets/img/course-details.jpg') }}" class="img-fluid" alt="">
+                    <img src="{{ asset($trainer->user->user_image_path) }}" class="img-fluid" alt="">
                     <h3>{{ $trainer->specialization }}</h3>
                     <p>
                         {{ $trainer->bio }}.
@@ -60,9 +60,43 @@
 
                     <div class="course-info d-flex justify-content-between align-items-center">
                         <h5>LinkedIn</h5>
+                        
                         <p>
                             @foreach ($trainer->social_links as $link)
                                 @if ($link['platform'] == 'LinkedIn')
+                                    <a href="{{ $link['url'] }}" target="_blank">{{ $link['url'] }}</a>
+                                @endif
+                            @endforeach
+                        </p>
+                    </div>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Facebook</h5>
+                        
+                        <p>
+                            @foreach ($trainer->social_links as $link)
+                                @if ($link['platform'] == 'Facebook')
+                                    <a href="{{ $link['url'] }}" target="_blank">{{ $link['url'] }}</a>
+                                @endif
+                            @endforeach
+                        </p>
+                    </div>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>twitter</h5>
+                        
+                        <p>
+                            @foreach ($trainer->social_links as $link)
+                                @if ($link['platform'] == 'twitter')
+                                    <a href="{{ $link['url'] }}" target="_blank">{{ $link['url'] }}</a>
+                                @endif
+                            @endforeach
+                        </p>
+                    </div>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Instagram</h5>
+                        
+                        <p>
+                            @foreach ($trainer->social_links as $link)
+                                @if ($link['platform'] == 'Instagram')
                                     <a href="{{ $link['url'] }}" target="_blank">{{ $link['url'] }}</a>
                                 @endif
                             @endforeach
@@ -77,7 +111,7 @@
     </section><!-- /Courses Course Details Section -->
 
     <!-- Tabs Section -->
-    <section id="tabs" class="tabs section">
+    {{-- <section id="tabs" class="tabs section">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -190,7 +224,7 @@
 
         </div>
 
-    </section><!-- /Tabs Section -->
+    </section><!-- /Tabs Section --> --}}
 
 
 

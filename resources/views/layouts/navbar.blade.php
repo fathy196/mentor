@@ -1,43 +1,64 @@
 <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
+    <div class="d-flex align-items-center">
+      <a href="{{ route('home') }}" class="logo d-flex align-items-center me-4">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-         {{-- <img src="{{asset('assets/img/logo.png')}}" alt="">  --}}
+        {{-- <img src="{{asset('assets/img/logo.png')}}" alt=""> --}}
         <h1 class="sitename">Mentor</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
-        <ul>
+        <ul class="d-flex align-items-center gap-4 mb-0">
           <li><a href="{{ route('home') }}" class="@yield('home')">Home<br></a></li>
           <li><a href="{{ route('about') }}" class="@yield('about')">About</a></li>
           <li><a href="{{ route('courses.index') }}" class="@yield('courses')">Courses</a></li>
           <li><a href="{{ route('trainers.index') }}" class="@yield('trainers')">Trainers</a></li>
           <li><a href="{{ route('events.index') }}" class="@yield('events')">Events</a></li>
-          {{-- <li><a href="pricing.html" class="@yield('pricing')">Pricing</a></li> --}}
-          {{-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
-            </ul>
-          </li> --}}
           <li><a href="{{ route('contact') }}" class="@yield('contact')">Contact</a></li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+      <div class="auth-section d-flex align-items-center gap-3">
+        @guest
+            @if (Route::has('login'))
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Sign in') }}</a>
+            @endif
+
+            @if (Route::has('register'))
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Sign up') }}</a>
+            @endif
+        @else
+            <div class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                        {{ __('profile') }}
+                    </a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+        @endguest
+      </div>
 
       <a class="btn-getstarted" href="{{ route('courses.index') }}">Get Started</a>
 
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </div>
-  </header>
+
+  </div>
+</header>

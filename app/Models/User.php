@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -71,5 +72,18 @@ class User extends Authenticatable
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+    public function scopeTrainers($query)
+    {
+        return $query->where('role', 'trainer');
+    }
+
+    public function getUserImagePathAttribute()
+    {
+        if ($this->image) {
+            return 'storage/users/' . $this->image;
+        } else {
+            return "https://dummyimage.com/700x350/dee2e6/6c757d.jpg";
+        }
     }
 }

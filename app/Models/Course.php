@@ -18,6 +18,7 @@ class Course extends Model
         'start_date',
         'end_date',
         'trainer_id',
+        'category_id',
     ];
     public function category()
     {
@@ -35,6 +36,15 @@ class Course extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function getImagePathAttribute()
+    {
+        if ($this->image) {
+            return 'storage/courses/' . $this->image;
+        } else {
+            return "https://dummyimage.com/700x350/dee2e6/6c757d.jpg";
+        }
     }
     // Query Scope for Popular Courses
     public function scopePopular($query, $limit = 5)

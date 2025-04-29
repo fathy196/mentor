@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TrainerRequest;
 use App\Models\Trainer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TrainerController extends Controller
@@ -12,7 +14,7 @@ class TrainerController extends Controller
      */
     public function index()
     {
-        $trainers = Trainer::with('user')->get();
+        $trainers = Trainer::with('user')->inRandomOrder()->get();
         // dd($trainers);
         return view('trainer', compact('trainers'));
     }
@@ -22,15 +24,26 @@ class TrainerController extends Controller
      */
     public function create()
     {
-        //
+        $trainers = User::trainers()->get(); // To show users in the dropdown
+        return view('trainers.create', compact('trainers'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TrainerRequest $request)
     {
-        //
+        $socialLinks = $request->only(['facebook', 'linkedin', 'instagram', 'twitter']);
+
+        // Create the Trainer record using the validated request data
+        Trainer::create([
+            'specialization' => $request->specialization,
+            'bio' => $request->bio,
+            'experience_years' => $request->experience_years ?? 0,
+            'social_links' => $socialLinks,  // Mutator will handle processing
+            'user_id' => $request->user_id,
+        ]);
+        return redirect()->route('trainers.index')->with('status', 'Trainer created successfully!');
     }
 
     /**

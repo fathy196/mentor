@@ -134,3 +134,19 @@
   window.addEventListener("load", initSwiper);
 
 })();
+
+
+/**
+-------------------------------------------------------------------- */
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(function () {
+      let alertBox = document.getElementById("success-alert");
+      if (alertBox) {
+          alertBox.style.transition = "opacity 0.5s ease-out";
+          alertBox.style.opacity = "0";
+          setTimeout(() => alertBox.remove(), 500);
+      }
+  }, 3000); // Disappears after 5 seconds
+});

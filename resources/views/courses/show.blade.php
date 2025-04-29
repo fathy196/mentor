@@ -35,7 +35,7 @@
 
             <div class="row">
                 <div class="col-lg-8">
-                    <img src="{{ asset('assets/img/course-details.jpg') }}" class="img-fluid" alt="">
+                    <img src="{{ asset($course->image_path) }}" class="img-fluid" alt="">
                     <h3>{{$course->title}}</h3>
                     <p>
                         {{$course->description}}.
@@ -43,6 +43,10 @@
                 </div>
                 <div class="col-lg-4">
 
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Category</h5>
+                        <p><a href="#">{{$course->category->name}}</a></p>
+                    </div>
                     <div class="course-info d-flex justify-content-between align-items-center">
                         <h5>Trainer</h5>
                         <p><a href="#">{{$course->trainer->user->name}}</a></p>
@@ -71,7 +75,7 @@
     </section><!-- /Courses Course Details Section -->
 
     <!-- Tabs Section -->
-    <section id="tabs" class="tabs section">
+    {{-- <section id="tabs" class="tabs section">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -183,7 +187,7 @@
 
         </div>
 
-    </section><!-- /Tabs Section -->
+    </section><!-- /Tabs Section --> --}}
 
 
 

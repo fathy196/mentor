@@ -31,4 +31,36 @@ class Trainer extends Model
     {
         return $this->hasMany(Event::class);
     }
+
+    // Mutator to handle the social links logic
+    public function setSocialLinksAttribute($value)
+    {
+        $socialLinks = [];
+
+        // Platform names and their request keys
+        $platforms = [
+            'facebook' => 'Facebook',
+            'linkedin' => 'LinkedIn',
+            'instagram' => 'Instagram',
+            'twitter' => 'Twitter',
+        ];
+
+        foreach ($platforms as $key => $platform) {
+            if (!empty($value[$key])) {
+                $socialLinks[] = ['platform' => $platform, 'url' => $value[$key]];
+            }
+        }
+
+        // Store the processed social links as a JSON array
+        $this->attributes['social_links'] = json_encode($socialLinks);
+    }
+    
+public function getFormattedSocialLinks()
+{
+    return collect($this->social_links)
+        ->mapWithKeys(function ($item) {
+            return [strtolower($item['platform']) => $item['url']];
+        })
+        ->toArray();
+}
 }

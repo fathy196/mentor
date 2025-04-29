@@ -37,7 +37,7 @@
                     
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                     <div class="course-item">
-                        <img src="{{ asset('assets/img/course-1.jpg') }}" class="img-fluid" alt="...">
+                        <img src="{{ asset($course->image_path) }}" class="img-fluid" alt="...">
                         <div class="course-content">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <p class="category">{{$course->category->name}}</p>
@@ -48,7 +48,7 @@
                             <p class="description">{{ substr($course->description, 0, 50) }}...</p>
                             <div class="trainer d-flex justify-content-between align-items-center">
                                 <div class="trainer-profile d-flex align-items-center">
-                                    <img src="{{ asset('assets/img/trainers/trainer-1-2.jpg') }}" class="img-fluid"
+                                    <img src="{{ asset($course->trainer->user->user_image_path) }}" class="img-fluid"
                                         alt="">
                                     <a href="{{ route('trainers.show', $course->trainer->id) }}" class="trainer-link">{{$course->trainer->user->name}}</a>
                                 </div>

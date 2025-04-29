@@ -9,6 +9,14 @@
 
   @include('layouts.navbar')
 
+  
+  @if (session('status'))
+  <div class="alert alert-success alert-dismissible fade show custom-toast" role="alert" id="success-alert">
+      {{ session('status') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
   <main class="main">
   @yield('content')
 </main>  

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CourseRequest;
+use App\Models\Category;
 use App\Models\Course;
+use App\Models\Trainer;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -12,7 +15,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::with(['trainer', 'category'])->get();
+        $courses = Course::with(['trainer', 'category'])->latest()->get();
         return view('courses.index', compact('courses'));
     }
 
@@ -21,15 +24,36 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $trainers = Trainer::all();
+        return view('courses.create', compact('categories', 'trainers'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        //
+        
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+        } else {
+            return redirect()->back()->withErrors(['image' => 'Image file is required.']);
+        }
+        // dd($request->file('image'));
+        $request->file('image')->move(public_path('storage/courses'), $imageName);
+        
+        Course::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'image' => $imageName,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'category_id' => $request->category_id,
+            'trainer_id' => $request->trainer_id,
+        ]);
+        return redirect()->route('courses.index')->with('status', 'Course created successfully.');
     }
 
     /**

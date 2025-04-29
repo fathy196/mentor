@@ -28,7 +28,7 @@ class HomeController extends Controller
         // $trainerCount = User::where('role', 'trainer')->count();
         $trainerCount = Trainer::count();
         $courseCount = Course::count();
-        $eventCount = Event::count();
+        $eventCount = Event::where('event_date', '>=', now('Africa/Cairo'))->count();
         return view('home', compact(['trainers', 'popularCourses', 'userCount', 'trainerCount', 'courseCount', 'eventCount']));
     }
     public function about()

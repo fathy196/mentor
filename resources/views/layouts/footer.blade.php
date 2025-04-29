@@ -23,11 +23,12 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('about') }}">About us</a></li>
+            <li><a href="{{ route('courses.index') }}">Courses</a></li>
+            <li><a href="{{ route('trainers.index') }}">Trainers</a></li>
+            <li><a href="{{ route('events.index') }}">Events</a></li>
+            <li><a href="{{ route('contact') }}">Contact</a></li>
           </ul>
         </div>
 

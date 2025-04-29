@@ -14,6 +14,7 @@ class Event extends Model
         'event_date',
         'location',
         'trainer_id',
+        'image',
     ];
     public function trainer()
     {
@@ -23,5 +24,13 @@ class Event extends Model
     {
         return Carbon::parse($this->event_date)
         ->format('l, F j, Y \a\t g:i A');
+    }
+    public function getEventImageAttribute()
+    {
+        if ($this->image) {
+            return 'storage/events/' . $this->image;
+        } else {
+            return "https://dummyimage.com/700x350/dee2e6/6c757d.jpg";
+        }
     }
 }
